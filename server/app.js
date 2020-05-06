@@ -1,0 +1,59 @@
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var cors = require("cors");
+var sql = require("mssql");
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var testAPIRouter = require("./routes/testAPI");
+var testSQLConnection = require("./routes/testSQL")
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(cors());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use("/testAPI", testAPIRouter);
+app.use("/test", testSQLConnection)
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+const azaza = async () => {
+    try {
+        // make sure that any items are correctly URL encoded in the connection string
+        await sql.connect('mssql://Vitya:1@localhost/Vitya');
+        console.log('SQL db connected ...')
+    } catch (err) {
+        // ... error checks
+        console.log('SQL db connection failed', err);
+    }
+}
+
+azaza()
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+module.exports = app;

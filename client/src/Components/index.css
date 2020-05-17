@@ -1,0 +1,12 @@
+.icon-year-change {
+    transition: 0.5s;
+    opacity: 0.5;
+}
+
+.icon-year-change:hover {
+    opacity: 1;
+}
+
+.rotateButton {
+    transform: rotate(180deg);
+}

@@ -36,3 +36,41 @@ export const typeofwork = [
     { title: 'Work ID', field: 'WorkID' },
     { title: 'Name', field: 'Name'},
 ];
+
+export const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+
+export const arr = [
+    0,0,0,0,0,0,0,0,0,0,0,0
+];
+
+export const GetFormattedDate = (date) => {
+    const formatedDate = date;
+    let month = formatedDate.getMonth() + 1;
+    let day = formatedDate.getDate();
+    let monthNumber = month-1;
+    const year = formatedDate.getFullYear().toString();
+
+    if (month < 10) {
+        month = `0${month}`
+    }
+    if (day < 10) {
+        day = `0${day}`
+    }
+
+    const newDate = year + "." + month + "." + day;
+
+    return {newDate, year, month, monthNumber};
+}

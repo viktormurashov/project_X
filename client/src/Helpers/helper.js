@@ -6,7 +6,6 @@ import {
     seekerColumns,
 } from './const';
 
-
 export default class helper {
     getFieldsByName = (entityName) => {
         let entityColumns = [];

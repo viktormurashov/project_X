@@ -94,7 +94,7 @@ export default function App() {
         }>
         </Route>
         <Route path="/deal" component={
-          () => <Entity entityName='deal' publicName='Type of work' id='DealID'/>
+          () => <Entity entityName='deal' publicName='Deal' id='DealID'/>
         }>
         </Route>
         <Route path="/employer" component={

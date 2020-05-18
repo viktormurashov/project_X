@@ -8,7 +8,7 @@ import {
   BrowserRouter as Router,
   Switch, Route, Link
 } from "react-router-dom";
-
+import StartPage from './Components/startPage'
 import {
   Drawer, List, ListItem,
   ListItemIcon, ListItemText,
@@ -85,6 +85,10 @@ export default function App() {
           </List>
         </Drawer>
         <Switch>
+        <Route exact={true} path="/" component={
+          () => <StartPage/>
+        }>
+        </Route>
         <Route path="/typeofwork" component={
           () => <Entity entityName='typeofwork' publicName='Type of work' id='WorkID'/>
         }>

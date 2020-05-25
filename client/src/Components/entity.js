@@ -27,7 +27,7 @@ const TitleComponent = (publicName, logicName, func, data, sorting, expanded, ha
         >
           <ExpandMoreIcon />
         </IconButton>
-        <a href={`http://localhost:9000/test/excel${logicName}`} className={'icon-year-change'} style={{color: 'black', marginLeft: '5px'}}>
+        <a href={`http://localhost:9000/testAPI/excel${logicName}`} className={'icon-year-change'} style={{color: 'black', marginLeft: '5px'}}>
           <CloudDownloadIcon/>
         </a>
       </div>
@@ -52,6 +52,7 @@ class Entity extends React.Component {
       sortingNamesArray: [],
       previousData: [],
       expand: false,
+      users: []
     }
   }
 
@@ -65,13 +66,19 @@ class Entity extends React.Component {
       for (let prop in newData) {
         previousData.forEach((val, index) => {
           let props = newData[prop] || '';
-          if (prop === 'Salary' || prop === 'AssumedSalary') {
+          if (prop === 'Area') {
             if (val[prop] < +props) {
               newArrOfIndex.add(index);
             }
           } else {
-            if (!val[prop].toString().includes(props)) {
-              newArrOfIndex.add(index);
+            if (prop === 'RentalPrice') {
+              if (props && val[prop] && val[prop] > +props) {
+                newArrOfIndex.add(index);
+              }
+            } else {
+              if (!val[prop].toString().includes(props)) {
+                newArrOfIndex.add(index);
+              }
             }
           }
         })
@@ -121,29 +128,58 @@ class Entity extends React.Component {
 
   updateState = async () => {
     const data = await API.getAll(this.props.entityName);
+    let id = 0;
+    let users = [];
     let dataAfterParse = {};
     let graphsData = {};
     let charData = {};
     let totalSum = 0;
 
-    if (this.props.entityName === 'deal') {
-      data.map(field => {
-        dataAfterParse = GetFormattedDate(new Date(field.DateOfDeal));
-        field.DateOfDeal = dataAfterParse.newDate;
+    if (this.props.entityName === 'contract') {
+        data.map(field => {
+          dataAfterParse = GetFormattedDate(new Date(field.BeginningDate));
+          field.BeginningDate = dataAfterParse.newDate;
+        })
+        data.map(field => {
+          dataAfterParse = GetFormattedDate(new Date(field.EndDate));
+          field.EndDate = dataAfterParse.newDate;
+        })
+    }
 
-        if (graphsData[dataAfterParse.year]) {
-          graphsData[dataAfterParse.year][dataAfterParse.monthNumber] = field.Commission + graphsData[dataAfterParse.year][dataAfterParse.monthNumber];
-        } else {
-          const ar = arr.slice();
-          ar[dataAfterParse.monthNumber] = field.Commission;
-          graphsData[dataAfterParse.year] = ar;
-        }
-      })
+    if (this.props.entityName === 'payment') {
+      users = await API.getAll('client');
+      const contracts = await API.getAll('contract');
+
+      if (users.length) {
+        users = users.map(field => {
+          return field = {id: field.ClientID, name: field.ContactPerson}
+        })
+      }
+      if (users[0]) {
+        data.map(field => {
+          dataAfterParse = GetFormattedDate(new Date(field.PaymentDate));
+          field.PaymentDate = dataAfterParse.newDate;
+          contracts.map(contract => {
+            if (field.ContractID === contract.ContractID && contract.ClientID === users[0].id) {
+              if (graphsData[dataAfterParse.year]) {
+                graphsData[dataAfterParse.year][dataAfterParse.monthNumber] = field.SummPayment + graphsData[dataAfterParse.year][dataAfterParse.monthNumber];
+              } else {
+                const ar = arr.slice();
+                ar[dataAfterParse.monthNumber] = field.SummPayment;
+                graphsData[dataAfterParse.year] = ar;
+              }
+            }
+          })
+        })
+      }
+
       const dataSet = graphsData[this.state.currentYear];
 
-      graphsData[this.state.currentYear].map(month => {
-        totalSum += month;
-      })
+      if (graphsData[this.state.currentYear]) {
+        graphsData[this.state.currentYear].map(month => {
+          totalSum += month;
+        })
+      }
 
       charData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -164,6 +200,8 @@ class Entity extends React.Component {
       charData,
       totalSum,
       previousData: data,
+      users,
+      userId: id
     });
   }
 
@@ -186,6 +224,64 @@ class Entity extends React.Component {
       chardata,
       totalSum,
     })
+  }
+
+  changePaymentUser = async (userId) => {
+      let users = await API.getAll('client');
+      const contracts = await API.getAll('contract');
+      let dataAfterParse = {};
+      let graphsData = {};
+      let charData = {};
+      let totalSum = 0;
+
+      if (users.length) {
+        users = users.map(field => {
+          return field = {id: field.ClientID, name: field.ContactPerson}
+        })
+      }
+      if (userId) {
+        this.state.previousData.map(field => {
+          dataAfterParse = GetFormattedDate(new Date(field.PaymentDate));
+          field.PaymentDate = dataAfterParse.newDate;
+          contracts.map(contract => {
+            if (field.ContractID === contract.ContractID && contract.ClientID === +userId) {
+              if (graphsData[dataAfterParse.year]) {
+                graphsData[dataAfterParse.year][dataAfterParse.monthNumber] = field.SummPayment + graphsData[dataAfterParse.year][dataAfterParse.monthNumber];
+              } else {
+                const ar = arr.slice();
+                ar[dataAfterParse.monthNumber] = field.SummPayment;
+                graphsData[dataAfterParse.year] = ar;
+              }
+            }
+          })
+        })
+      }
+
+      const dataSet = graphsData[this.state.currentYear];
+
+      if (graphsData[this.state.currentYear]) {
+        graphsData[this.state.currentYear].map(month => {
+          totalSum += month;
+        })
+      }
+
+      charData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [
+          {
+            label:'Rub',
+            data: dataSet
+          }
+        ]
+      }
+
+    this.setState({
+      graphsData,
+      charData,
+      totalSum,
+      users,
+      userId: userId,
+    });
   }
 
   addRow = async (newData) => {
@@ -252,8 +348,8 @@ class Entity extends React.Component {
             }}
               />
               {
-                this.state.charData.labels 
-                ? <Chart chartData={this.state.charData} totalSum={this.state.totalSum} changeYear={this.changeGraphYear} currentYear={this.state.currentYear}/> 
+                this.state.charData.labels && this.state.users.length && this.state.users
+                ? <Chart chartData={this.state.charData} totalSum={this.state.totalSum} users={this.state.users} userId={this.state.userId} changePaymentUser={this.changePaymentUser} changeYear={this.changeGraphYear} currentYear={this.state.currentYear}/> 
                 : <div/>
               }
             </div>

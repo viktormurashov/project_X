@@ -4,6 +4,11 @@ import {
     positionsColumns,
     typeofwork,
     seekerColumns,
+    contractColumns,
+    rentColumns,
+    clientColumns,
+    outletsColumns,
+    paymentColumns,
 } from './const';
 
 export default class helper {
@@ -24,6 +29,21 @@ export default class helper {
                 break;
             case('employer'):
                 entityColumns = employerColumns;
+                break;
+            case('rent'):
+                entityColumns = rentColumns;
+                break;
+            case('contract'):
+                entityColumns = contractColumns;
+                break;
+            case('client'):
+                entityColumns = clientColumns;
+                break;
+            case('outlets'):
+                entityColumns = outletsColumns;
+                break;
+            case('payment'):
+                entityColumns = paymentColumns;
                 break;
             default:
                 break;

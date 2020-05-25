@@ -42,44 +42,44 @@ export default function App() {
           classes={{ paper: classes.drawerPaper }}
         >
           <List>
-              <Link to="/typeofwork" className={classes.link}>
+              <Link to="/payment" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
                     <WorkIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Type of work"} />
+                  <ListItemText primary={"Payment"} />
                 </ListItem>
               </Link>
-              <Link to="/position" className={classes.link}>
+              <Link to="/outlet" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
                     <PostAddIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Position"} />
+                  <ListItemText primary={"Outlet"} />
                 </ListItem>
               </Link>
-              <Link to="/deal" className={classes.link}>
+              <Link to="/contract" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
                     <AssignmentIndIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Deal"} />
+                  <ListItemText primary={"Contract"} />
                 </ListItem>
               </Link>
-              <Link to="/employer" className={classes.link}>
+              <Link to="/client" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
                     <PersonIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Employer"} />
+                  <ListItemText primary={"Client"} />
                 </ListItem>
               </Link>
-              <Link to="/jobseeker" className={classes.link}>
+              <Link to="/rent" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
                     <PersonAddIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Job seeker"} />
+                  <ListItemText primary={"Rent"} />
                 </ListItem>
               </Link>
           </List>
@@ -89,24 +89,24 @@ export default function App() {
           () => <StartPage/>
         }>
         </Route>
-        <Route path="/typeofwork" component={
-          () => <Entity entityName='typeofwork' publicName='Type of work' id='WorkID'/>
+        <Route path="/client" component={
+          () => <Entity entityName='client' publicName='Client' id='ClientID'/>
         }>
         </Route>
-        <Route path="/position" component={
-          () => <Entity entityName='positions' publicName='Position' id='PositionID'/>
+        <Route path="/contract" component={
+          () => <Entity entityName='contract' publicName='Contract' id='ContractID'/>
         }>
         </Route>
-        <Route path="/deal" component={
-          () => <Entity entityName='deal' publicName='Deal' id='DealID'/>
+        <Route path="/rent" component={
+          () => <Entity entityName='rent' publicName='Rent' id='RentalID'/>
         }>
         </Route>
-        <Route path="/employer" component={
-          () => <Entity entityName='employer' publicName='Employer' id='EmployerID'/>
+        <Route path="/outlet" component={
+          () => <Entity entityName='outlets' publicName='Outlet' id='OutletID'/>
         }>
         </Route>
-        <Route path="/jobseeker" component={
-          () => <Entity entityName='jobseeker' publicName='Job Seeker' id='SeekerID'/>
+        <Route path="/payment" component={
+          () => <Entity entityName='payment' publicName='Payment' id='PaymentID'/>
         }>
         </Route>
         </Switch>

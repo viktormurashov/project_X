@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Line} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { ListItemIcon } from "@material-ui/core";
@@ -19,6 +19,10 @@ class Chart extends Component{
     this.props.changeYear(year);
   }
 
+  onChangeHandler = (event) => {
+    this.props.changePaymentUser(event.target.value);
+  }
+
   render() {
     return (
       <div className="chart" style={{margin: '0 30px 0 30px'}}>
@@ -33,12 +37,21 @@ class Chart extends Component{
                 <ArrowForwardIcon/>
             </ListItemIcon>
           </div>
-        <Line
+          <div>
+            <select onChange={this.onChangeHandler}>
+              { this.props.users.map(item => (
+                <option key={item.id} value={item.id}>
+                  { item.name }
+                </option>
+              )) }
+            </select>
+          </div>
+        <Bar
           data={this.props.chartData}
           options={{
             title:{
               display:this.props.displayTitle,
-              text:`Commision for year = ${this.props.totalSum}rub`,
+              text:`Summ of payment for year = ${this.props.totalSum}rub`,
               fontSize:14
             },
             legend:{

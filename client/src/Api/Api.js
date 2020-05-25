@@ -1,7 +1,7 @@
 
 export default class Api {
     async getAll(entityName) {
-      const res = await fetch(`http://localhost:9000/test/${entityName}`);
+      const res = await fetch(`http://localhost:9000/testAPI/${entityName}`);
       const entityArray = await res.json();
   
       return entityArray;
@@ -9,7 +9,7 @@ export default class Api {
   
     async postEntity(data, entityName) {
       // Default options are marked with *
-      await fetch(`http://localhost:9000/test/${entityName}`, {
+      await fetch(`http://localhost:9000/testAPI/${entityName}`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -31,7 +31,7 @@ export default class Api {
       const body = {
           id: data,
       }
-      await fetch(`http://localhost:9000/test/${entityName}`, {
+      await fetch(`http://localhost:9000/testAPI/${entityName}`, {
         method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -50,7 +50,7 @@ export default class Api {
   
     async putEntity(data, entityName) {
       // Default options are marked with *
-      await fetch(`http://localhost:9000/test/${entityName}`, {
+      await fetch(`http://localhost:9000/testAPI/${entityName}`, {
         method: 'PUT', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

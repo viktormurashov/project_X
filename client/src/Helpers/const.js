@@ -74,3 +74,40 @@ export const GetFormattedDate = (date) => {
 
     return {newDate, year, month, monthNumber};
 }
+
+export const rentColumns = [
+    { title: 'Rental ID', field: 'RentalID'},
+    { title: 'Outlet ID', field: 'OutletID'},
+    { title: 'Contract ID', field: 'ContractID' },
+];
+
+export const contractColumns = [
+    { title: 'Contract ID', field: 'ContractID'},
+    { title: 'Client ID', field: 'ClientID'},
+    { title: 'Beginning Date', field: 'BeginningDate' },
+    { title: 'End Date', field: 'EndDate'},
+];
+
+export const clientColumns = [
+    { title: 'Client ID', field: 'ClientID'},
+    { title: 'Title', field: 'Title'},
+    { title: 'Requisites', field: 'Requisites' },
+    { title: 'Address', field: 'Address'},
+    { title: 'Telephone', field: 'Telephone' },
+    { title: 'ContactPerson', field: 'ContactPerson' },
+];
+
+export const outletsColumns = [
+    { title: 'Outlet ID', field: 'OutletID'},
+    { title: 'Floor', field: 'Floor'},
+    { title: 'Area', field: 'Area' },
+    { title: 'With Conditioners', field: 'WithConditioners'},
+    { title: 'Rental Price', field: 'RentalPrice' },
+];
+
+export const paymentColumns = [
+    { title: 'Payment ID', field: 'PaymentID'},
+    { title: 'Payment Date', field: 'PaymentDate'},
+    { title: 'Summ Payment', field: 'SummPayment'},
+    { title: 'Contract ID', field: 'ContractID'},
+];

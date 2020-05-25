@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 const azaza = async () => {
     try {
         // make sure that any items are correctly URL encoded in the connection string
-        await sql.connect('mssql://Vitya:1@localhost/Vitya');
+        await sql.connect('mssql://loluser:1@localhost/lol');
         console.log('SQL db connected ...')
     } catch (err) {
         // ... error checks

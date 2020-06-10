@@ -1,40 +1,32 @@
-export const dealColumns = [
-    { title: 'Deal ID', field: 'DealID'},
-    { title: 'Date of deal', field: 'DateOfDeal'},
-    { title: 'Seeker ID', field: 'SeekerID' },
-    { title: 'Position ID', field: 'PositionID'},
-    { title: 'Commission', field: 'Commission'},
-];
-
-export const employerColumns = [
-    { title: 'Employer ID', field: 'EmployerID'},
-    { title: 'Work ID', field: 'WorkID' },
-    { title: 'Name', field: 'Name'},
-    { title: 'Address', field: 'Address'},
-    { title: 'Phone number', field: 'PhoneNumber'},
-];
-
-export const seekerColumns = [
-    { title: 'Seeker ID', field: 'SeekerID' },
-    { title: 'Work ID', field: 'WorkID' },
-    { title: 'Second name', field: 'SecondName' },
-    { title: 'First name', field: 'FirstName'  },
-    { title: 'Third name', field: 'ThirdName' },
-    { title: 'Qualification', field: 'Qualification' },
-    { title: 'Assumed salary', field: 'AssumedSalary' },
-];
-
-export const positionsColumns = [
-    { title: 'Position ID', field: 'PositionID'},
-    { title: 'Employer ID', field: 'EmployerID' },
-    { title: 'Position name', field: 'PositionName'},
+export const employeeColumns = [
+    { title: 'Surname', field: 'Surname'},
+    { title: 'Name', field: 'Name' },
+    { title: 'Middle name', field: 'MiddleName'},
     { title: 'Salary', field: 'Salary'},
-    { title: 'Open?', field: 'IsOpen'}
 ];
 
-export const typeofwork = [
-    { title: 'Work ID', field: 'WorkID' },
-    { title: 'Name', field: 'Name'},
+export const finalsalaryColumns = [
+    { title: 'Day of payment', field: 'Pay_day'},
+    { title: 'Payment', field: 'Payment_for_work' },
+    { title: 'Total', field: 'Itog'},
+];
+
+export const employeeworkColumns = [
+    { title: 'Employee code', field: 'Employee_code' },
+    { title: 'Work code', field: 'Work_code' },
+    { title: 'Type work code', field: 'Code_type_work' },
+];
+
+export const workColumns = [
+    { title: 'Start date', field: 'Date_start'},
+    { title: 'End date', field: 'Date_end' },
+    { title: 'Deadline', field: 'Deadline'},
+    { title: 'Need employee', field: 'Need_Employee'},
+];
+
+export const typeofworkColumns = [
+    { title: 'Definition', field: 'Definition' },
+    { title: 'Payment for work', field: 'Payment_for_work'},
 ];
 
 export const months = [

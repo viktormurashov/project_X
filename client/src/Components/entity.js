@@ -121,39 +121,24 @@ class Entity extends React.Component {
 
   updateState = async () => {
     const data = await API.getAll(this.props.entityName);
-    let dataAfterParse = {};
     let graphsData = {};
-    let charData = {};
     let totalSum = 0;
 
-    if (this.props.entityName === 'deal') {
+    if (this.props.entityName === 'work') {
       data.map(field => {
-        dataAfterParse = GetFormattedDate(new Date(field.DateOfDeal));
-        field.DateOfDeal = dataAfterParse.newDate;
-
-        if (graphsData[dataAfterParse.year]) {
-          graphsData[dataAfterParse.year][dataAfterParse.monthNumber] = field.Commission + graphsData[dataAfterParse.year][dataAfterParse.monthNumber];
-        } else {
-          const ar = arr.slice();
-          ar[dataAfterParse.monthNumber] = field.Commission;
-          graphsData[dataAfterParse.year] = ar;
-        }
+        const dataAfterParse = GetFormattedDate(new Date(field.Date_start));
+        field.Date_start = dataAfterParse.newDate;
+        const dataAfterParse1 = GetFormattedDate(new Date(field.Date_end));
+        field.Date_end = dataAfterParse1.newDate;
+        const dataAfterParse2 = GetFormattedDate(new Date(field.Deadline));
+        field.Deadline = dataAfterParse2.newDate;
       })
-      const dataSet = graphsData[this.state.currentYear];
-
-      graphsData[this.state.currentYear].map(month => {
-        totalSum += month;
+    }
+    if (this.props.entityName === 'finalsalary') {
+      data.map(field => {
+        const dataAfterParse = GetFormattedDate(new Date(field.Pay_day))
+        field.Pay_day = dataAfterParse.newDate;
       })
-
-      charData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-          {
-            label:'Rub',
-            data: dataSet
-          }
-        ]
-      }
     }
 
     this.sortComponents(data);
@@ -161,7 +146,6 @@ class Entity extends React.Component {
     this.setState({
       data,
       graphsData,
-      charData,
       totalSum,
       previousData: data,
     });
@@ -251,11 +235,11 @@ class Entity extends React.Component {
                 }),
             }}
               />
-              {
+              {/* {
                 this.state.charData.labels 
                 ? <Chart chartData={this.state.charData} totalSum={this.state.totalSum} changeYear={this.changeGraphYear} currentYear={this.state.currentYear}/> 
                 : <div/>
-              }
+              } */}
             </div>
             : <div/>
             }

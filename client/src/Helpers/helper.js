@@ -1,29 +1,29 @@
 import { 
-    dealColumns,
-    employerColumns,
-    positionsColumns,
-    typeofwork,
-    seekerColumns,
+    employeeColumns,
+    employeeworkColumns,
+    finalsalaryColumns,
+    typeofworkColumns,
+    workColumns,
 } from './const';
 
 export default class helper {
     getFieldsByName = (entityName) => {
         let entityColumns = [];
         switch(entityName) {
-            case('deal'):
-                entityColumns = dealColumns;
+            case('employee'):
+                entityColumns = employeeColumns;
                 break;
-            case('positions'):
-                entityColumns =  positionsColumns;
+            case('finalsalary'):
+                entityColumns =  finalsalaryColumns;
                 break;
-            case('typeofwork'):
-                entityColumns = typeofwork;
+            case('typework'):
+                entityColumns = typeofworkColumns;
                 break;
-            case('jobseeker'):
-                entityColumns = seekerColumns;
+            case('work'):
+                entityColumns = workColumns;
                 break;
-            case('employer'):
-                entityColumns = employerColumns;
+            case('employeework'):
+                entityColumns = employeeworkColumns;
                 break;
             default:
                 break;

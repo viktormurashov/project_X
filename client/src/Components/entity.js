@@ -209,14 +209,14 @@ class Entity extends React.Component {
             data={this.state.data}
             editable={{
               onRowAdd: newData =>
-                new Promise((resolve, reject) => {
+                new Promise((resolve) => {
                   setTimeout(async () => {
                     await this.addRow(newData);
                     resolve();
                   }, 1000)
                 }),
               onRowUpdate: (newData, oldData) =>
-                new Promise((resolve, reject) => {
+                new Promise((resolve) => {
                   setTimeout(async () => {
                     {
                       const data = {...newData};
@@ -227,7 +227,7 @@ class Entity extends React.Component {
                   }, 1000)
                 }),
               onRowDelete: oldData =>
-                new Promise((resolve, reject) => {
+                new Promise((resolve) => {
                   setTimeout(async () => {
                     await this.deleteRow(oldData[this.props.id]);
                     resolve();
@@ -235,14 +235,13 @@ class Entity extends React.Component {
                 }),
             }}
               />
-              {/* {
-                this.state.charData.labels 
-                ? <Chart chartData={this.state.charData} totalSum={this.state.totalSum} changeYear={this.changeGraphYear} currentYear={this.state.currentYear}/> 
-                : <div/>
-              } */}
             </div>
-            : <div/>
-            }
+            : 
+            (
+              <div style ={{position: 'absolute', top: '10%', right: '60%', fontSize: '24px'}}>
+                Not fount any records in database
+              </div>
+            )}
       </div>
     );
   }

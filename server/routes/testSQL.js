@@ -3,99 +3,110 @@ const router = express.Router();
 const sql = require("mssql");
 const excel = require('exceljs');
 
-router.get('/employee', async (req, res) => {
-    const result = await sql.query`select * from Employee`;
+router.get('/client', async (req, res) => {
+    const result = await sql.query`select * from Client`;
     res.send(result.recordset);
 });
 
-router.post('/employee', async (req, res) => {
-    if (!req.body) { console.log('Invalid input employee') }
+router.post('/client', async (req, res) => {
+    if (!req.body) { console.log('Invalid input client') }
     data = req.body;
-    await sql.query`INSERT INTO Position(EmployerID, PositionName, Salary, IsOpen) values (${data.EmployerID}, ${data.PositionName}, ${data.Salary}, ${data.IsOpen})`;
+    await sql.query`INSERT INTO Client(SecondName, FirstName,
+        Patronymic, PasportData, Comments) values 
+        (${data.SecondName}, ${data.FirstName},
+        ${data.Patronymic}, ${data.PasportData},
+        ${data.Comments})`;
 
     res.send('ok');
 });
 
-router.put('/employee', async (req, res) => {
-    if (!req.body) { console.log('Invalid input employee') }
+router.put('/client', async (req, res) => {
+    if (!req.body) { console.log('Invalid input client') }
     data = req.body;
-    await sql.query`UPDATE Position SET EmployerID=${data.EmployerID}, PositionName=${data.PositionName}, Salary=${data.Salary}, IsOpen=${data.IsOpen} WHERE PositionID=${data.PositionID}`;
+    await sql.query`UPDATE Client SET SecondName=${data.SecondName}, Patronymic=${data.Patronymic},
+    FirstName=${data.FirstName}, PasportData=${data.PasportData}, Comments=${data.Comments}
+    WHERE ClientID=${data.ClientID}`;
 
     res.send('ok');
 });
 
-router.delete('/employee', async (req, res) => {
-    if (!req.body) { console.log('Invalid input employee') }
+router.delete('/client', async (req, res) => {
+    if (!req.body) { console.log('Invalid input client') }
     data = req.body;
-    await sql.query`DELETE FROM Position WHERE PositionID=${data.id}`;
+    await sql.query`DELETE FROM Client WHERE ClientID=${data.id}`;
 
     res.send('ok');
 });
 
-router.get('/finalsalary', async (req, res) => {
-    const result = await sql.query`select * from Final_salary`;
-    res.send(result.recordset);
-});
-router.post('/finalsalary', async (req, res) => {
-    if (!req.body) { console.log('Invalid input deal') }
-    data = req.body;
-    await sql.query`INSERT INTO Deal(SeekerID, PositionID, DateOfDeal, Commission) values (${data.SeekerID}, ${data.PositionID}, ${data.DateOfDeal}, ${data.Commission})`;
-
-    res.send('ok');
-});
-
-router.put('/finalsalary', async (req, res) => {
-    if (!req.body) { console.log('Invalid input final salary') }
-    data = req.body;
-    await sql.query`UPDATE Deal SET SeekerID=${data.SeekerID}, PositionID=${data.PositionID}, DateOfDeal=${data.DateOfDeal}, Commission=${data.Commission} WHERE DealID=${data.DealID}`;
-
-    res.send('ok');
-});
-
-router.delete('/finalsalary', async (req, res) => {
-    if (!req.body) { console.log('Invalid input final salary') }
-    data = req.body;
-    await sql.query`DELETE FROM Deal WHERE DealID=${data.id}`;
-
-    res.send('ok');
-});
-
-router.get('/typework', async (req, res) => {
-    const result = await sql.query`select * from Type_work`;
+router.get('/discount', async (req, res) => {
+    const result = await sql.query`select * from Discount`;
     res.send(result.recordset);
 });
 
-router.post('/typework', async (req, res) => {
-    if (!req.body) { console.log('Invalid input Type work') }
+router.post('/discount', async (req, res) => {
+    if (!req.body) { console.log('Invalid input discount') }
     data = req.body;
-    await sql.query`INSERT INTO Employer(WorkID, Name, Address, PhoneNumber) values (${data.WorkID}, ${data.Name}, ${data.Address}, ${data.PhoneNumber})`;
+    await sql.query`INSERT INTO Discount(Name, AmountOfDiscount)
+    values (${data.Name}, ${data.AmountOfDiscount})`;
 
     res.send('ok');
 });
 
-router.put('/typework', async (req, res) => {
-    if (!req.body) { console.log('Invalid input Type work') }
+router.put('/discount', async (req, res) => {
+    if (!req.body) { console.log('Invalid input discount') }
     data = req.body;
-    await sql.query`UPDATE Employer SET WorkID=${data.WorkID}, Name=${data.Name}, Address=${data.Address}, PhoneNumber=${data.PhoneNumber} WHERE EmployerID=${data.EmployerID}`;
+    await sql.query`UPDATE Deal SET Name=${data.Name}, AmountOfDiscount=${data.AmountOfDiscount},
+    WHERE DiscountID=${data.DiscountID}`;
 
     res.send('ok');
 });
 
-router.delete('/typework', async (req, res) => {
-    if (!req.body) { console.log('Invalid input Type work') }
+router.delete('/discount', async (req, res) => {
+    if (!req.body) { console.log('Invalid input discount') }
+    data = req.body;
+    await sql.query`DELETE FROM Discount WHERE DiscountID=${data.id}`;
+
+    res.send('ok');
+});
+
+router.get('/discountsettling', async (req, res) => {
+    const result = await sql.query`select * from Discount_Settling`;
+    res.send(result.recordset);
+});
+
+router.post('/discountsettling', async (req, res) => {
+    if (!req.body) { console.log('Invalid input discount settling') }
+    data = req.body;
+    await sql.query`INSERT INTO Discount_Settling(WorkID, Name)
+    values (${data.WorkID}, ${data.Name})`;
+
+    res.send('ok');
+});
+
+router.put('/discountsettling', async (req, res) => {
+    if (!req.body) { console.log('Invalid input discount settling') }
+    data = req.body;
+    await sql.query`UPDATE Employer SET WorkID=${data.WorkID}, Name=${data.Name},
+    WHERE EmployerID=${data.EmployerID}`;
+
+    res.send('ok');
+});
+
+router.delete('/discountsettling', async (req, res) => {
+    if (!req.body) { console.log('Invalid input discount settling') }
     data = req.body;
     await sql.query`DELETE FROM Employer WHERE EmployerID=${data.id}`;
 
     res.send('ok');
 });
 
-router.get('/work', async (req, res) => {
-    const result = await sql.query`select * from Work`;
+router.get('/room', async (req, res) => {
+    const result = await sql.query`select * from Room`;
     res.send(result.recordset);
 });
 
-router.post('/work', async (req, res) => {
-    if (!req.body) { console.log('Invalid input work') }
+router.post('/room', async (req, res) => {
+    if (!req.body) { console.log('Invalid input room') }
     data = req.body;
     await sql.query`INSERT INTO JobSeeker(WorkID, Qualification, Misc, AssumedSalary, FirstName, SecondName, ThirdName) 
     values (${data.WorkID}, ${data.Qualification}, ${data.Misc}, ${data.AssumedSalary}, ${data.FirstName}, ${data.SecondName}, ${data.ThirdName})`;
@@ -103,71 +114,80 @@ router.post('/work', async (req, res) => {
     res.send('ok');
 });
 
-router.put('/work', async (req, res) => {
-    if (!req.body) { console.log('Invalid input work') }
+router.put('/room', async (req, res) => {
+    if (!req.body) { console.log('Invalid input room') }
     data = req.body;
-    await sql.query`UPDATE JobSeeker SET WorkID=${data.WorkID}, Qualification=${data.Qualification}, Misc=${data.Misc}, AssumedSalary=${data.AssumedSalary},
-     FirstName=${data.FirstName}, SecondName=${data.SecondName}, ThirdName=${data.ThirdName} WHERE SeekerID=${data.SeekerID}`;
+    await sql.query`UPDATE Room SET Number=${data.Number}, Comfort=${data.Comfort},
+     Misc=${data.Misc}, AssumedSalary=${data.AssumedSalary},
+     WHERE RoomID=${data.RoomID}`;
 
     res.send('ok');
 });
 
-router.delete('/work', async (req, res) => {
-    if (!req.body) { console.log('Invalid input work') }
+router.delete('/room', async (req, res) => {
+    if (!req.body) { console.log('Invalid input room') }
     data = req.body;
-    await sql.query`DELETE FROM work WHERE Work_code=${data.id}`;
+    await sql.query`DELETE FROM Room WHERE RoomID=${data.id}`;
 
     res.send('ok');
 });
 
-router.get('/employeework', async (req, res) => {
-    const result = await sql.query`select * from Employee_Work`;
+router.get('/settling', async (req, res) => {
+    const result = await sql.query`select * from Settling`;
     res.send(result.recordset);
 });
 
-router.post('/employeework', async (req, res) => {
-    if (!req.body) { console.log('Invalid input typeofwork') }
+router.post('/settling', async (req, res) => {
+    if (!req.body) { console.log('Invalid input settling') }
     data = req.body;
-    await sql.query`INSERT INTO typeofwork(name) values (${data.Name})`;
+    await sql.query`INSERT INTO typeofwork(ClientID, RoomID, SettlingDate,
+    DepartureDate, Note, IsReservation)
+    values (${data.ClientID},${data.RoomID},${data.SettlingDate},${data.DepartureDate}
+    ${data.Note},${data.IsReservation})`;
 
     res.send('ok');
 });
 
-router.put('/employeework', async (req, res) => {
-    if (!req.body) { console.log('Invalid input typeofwork') }
+router.put('/settling', async (req, res) => {
+    if (!req.body) { console.log('Invalid input settling') }
     data = req.body;
-    await sql.query`UPDATE TypeOfWork SET Name=${data.Name} WHERE WorkID=${data.WorkID}`;
+    await sql.query`UPDATE TypeOfWork SET ClientID=${data.ClientID},
+    RoomID=${data.RoomID}, SettlingDate=${data.SettlingDate},
+    DepartureDate=${data.DepartureDate}, Note=${data.Note},
+    IsReservation=${data.IsReservation}, WHERE SettlingID=${data.SettlingID}`;
 
     res.send('ok');
 });
 
-router.delete('/employeework', async (req, res) => {
-    if (!req.body) { console.log('Invalid input typeofwork') }
+router.delete('/settling', async (req, res) => {
+    if (!req.body) { console.log('Invalid input settling') }
     data = req.body;
-    await sql.query`DELETE FROM TypeOfWork WHERE WorkID=${data.id}`;
+    await sql.query`DELETE FROM Settling WHERE Settling=${data.id}`;
 
     res.send('ok');
 });
 
-router.get('/excelemployee', async (req, res) => {
-    const result = await sql.query`select * from Employee`;
+router.get('/excelsettling', async (req, res) => {
+    const result = await sql.query`select * from Settling`;
     const json = JSON.parse(JSON.stringify(result.recordset));
 
     let workbook = new excel.Workbook();
-    let worksheet = workbook.addWorksheet('Employee');
+    let worksheet = workbook.addWorksheet('Settling');
 
     worksheet.columns = [
-        { header: 'Id', key: 'Employee_code', width: 10 },
-        { header: 'Surname', key: 'Surname', width: 30 },
-        { header: 'Name', key: 'Name', width: 30 },
-        { header: 'Middle name', key: 'MiddleName', width: 30 },
-        { header: 'Salary', key: 'Salary', width: 30 },
+        { header: 'Id', key: 'SettlingID', width: 10 },
+        { header: 'Client id', key: 'ClientID', width: 30 },
+        { header: 'Room id', key: 'RoomID', width: 30 },
+        { header: 'Settling date', key: 'MiddleName', width: 30 },
+        { header: 'Departure date', key: 'DepartureDate', width: 30 },
+        { header: 'Note', key: 'Note', width: 30 },
+        { header: 'Is reservation', key: 'IsReservation', width: 30 },
     ];
 
     worksheet.addRows(json);
 
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Employee.xlsx');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Settling.xlsx');
 
     return workbook.xlsx.write(res)
           .then(function() {
@@ -175,24 +195,24 @@ router.get('/excelemployee', async (req, res) => {
           });
 });
 
-router.get('/excelemployer', async (req, res) => {
-    const result = await sql.query`select * from Employer`;
+router.get('/excelroom', async (req, res) => {
+    const result = await sql.query`select * from Room`;
     const json = JSON.parse(JSON.stringify(result.recordset));
 
     let workbook = new excel.Workbook();
-    let worksheet = workbook.addWorksheet('Employer');
+    let worksheet = workbook.addWorksheet('Room');
     worksheet.columns = [
-        { header: 'Id', key: 'EmployerID', width: 10 },
-        { header: 'Id', key: 'WorkID', width: 10 },
-        { header: 'Name', key: 'Name', width: 30 },
-        { header: 'Address', key: 'Address', width: 30},
-        { header: 'PhoneNumber', key: 'PhoneNumber', width: 30},
+        { header: 'Id', key: 'RoomID', width: 10 },
+        { header: 'Number', key: 'Number', width: 10 },
+        { header: 'Number of people', key: 'NumberOfPeople', width: 30 },
+        { header: 'Comfort', key: 'Comfort', width: 30},
+        { header: 'Price', key: 'Price', width: 30},
     ];
 
     worksheet.addRows(json);
 
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Employer.xlsx');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Room.xlsx');
 
     return workbook.xlsx.write(res)
           .then(function() {
@@ -200,28 +220,26 @@ router.get('/excelemployer', async (req, res) => {
           });
 });
 
-router.get('/exceljobseeker', async (req, res) => {
-    const result = await sql.query`select * from JobSeeker`;
+router.get('/excelclient', async (req, res) => {
+    const result = await sql.query`select * from Client`;
     const json = JSON.parse(JSON.stringify(result.recordset));
 
     let workbook = new excel.Workbook();
-    let worksheet = workbook.addWorksheet('JobSeeker');
+    let worksheet = workbook.addWorksheet('Client');
 
     worksheet.columns = [
-        { header: 'Id', key: 'SeekerID', width: 10 },
+        { header: 'Id', key: 'ClientID', width: 10 },
         { header: 'Second name', key: 'SecondName', width: 30 },
         { header: 'First name', key: 'FirstName', width: 30 },
-        { header: 'Third name', key: 'ThirdName', width: 30},
-        { header: 'Qualification', key: 'Qualification', width: 30 },
-        { header: 'Assumed salary', key: 'AssumedSalary', width: 30},
-        { header: 'Misc', key: 'Misc', width: 30},
-        { header: 'Work ID', key: 'WorkID', width: 10 },
+        { header: 'Patronymic', key: 'Patronymic', width: 30},
+        { header: 'Pasport data', key: 'PasportData', width: 30 },
+        { header: 'Comments', key: 'Comments', width: 30},
     ];
 
     worksheet.addRows(json);
 
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + 'JobSeeker.xlsx');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Client.xlsx');
 
     return workbook.xlsx.write(res)
           .then(function() {
@@ -229,25 +247,22 @@ router.get('/exceljobseeker', async (req, res) => {
           });
 });
 
-router.get('/exceldeal', async (req, res) => {
-    const result = await sql.query`select * from Deal`;
+router.get('/exceldiscountsettling', async (req, res) => {
+    const result = await sql.query`select * from Discount_Settling`;
     const json = JSON.parse(JSON.stringify(result.recordset));
 
     let workbook = new excel.Workbook();
-    let worksheet = workbook.addWorksheet('Deal');
+    let worksheet = workbook.addWorksheet('Discount_Settling');
 
     worksheet.columns = [
-        { header: 'Id', key: 'DealID', width: 20 },
-        { header: 'Seeker Id', key: 'SeekerID', width: 20 },
-        { header: 'Position Id', key: 'PositionID', width: 30 },
-        { header: 'Date of deal', key: 'DateOfDeal', width: 30 },
-        { header: 'Commission', key: 'Commission', width: 30},
+        { header: 'Settling id', key: 'SettlingID', width: 30 },
+        { header: 'Discount id', key: 'DiscountID', width: 30 },
     ];
 
     worksheet.addRows(json);
 
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Deal.xlsx');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Discount_Settling.xlsx');
 
     return workbook.xlsx.write(res)
           .then(function() {
@@ -255,25 +270,23 @@ router.get('/exceldeal', async (req, res) => {
           });
 });
 
-router.get('/excelpositions', async (req, res) => {
-    const result = await sql.query`select * from Position`;
+router.get('/exceldiscount', async (req, res) => {
+    const result = await sql.query`select * from Discount`;
     const json = JSON.parse(JSON.stringify(result.recordset));
 
     let workbook = new excel.Workbook();
-    let worksheet = workbook.addWorksheet('Position');
+    let worksheet = workbook.addWorksheet('Discount');
 
     worksheet.columns = [
-        { header: 'Id', key: 'PositionID', width: 10 },
-        { header: 'Employer Id', key: 'EmployerID', width: 30 },
-        { header: 'Position name', key: 'PositionName', width: 30 },
-        { header: 'Salary', key: 'Salary', width: 30},
-        { header: 'Open ?', key: 'IsOpen', width: 30},
+        { header: 'Id', key: 'DiscountID', width: 10 },
+        { header: 'Name', key: 'Name', width: 30 },
+        { header: 'Amount of discount', key: 'AmountOfDiscount', width: 50 },
     ];
 
     worksheet.addRows(json);
 
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Position.xlsx');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Discount.xlsx');
 
     return workbook.xlsx.write(res)
           .then(function() {

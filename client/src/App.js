@@ -42,44 +42,29 @@ export default function App() {
           classes={{ paper: classes.drawerPaper }}
         >
           <List>
-              <Link to="/employee" className={classes.link}>
+              <Link to="/client" className={classes.link}>
                 <ListItem button>
-                  {/* <ListItemIcon>
-                    <WorkIcon />
-                  </ListItemIcon> */}
-                  <ListItemText primary={"Employee"} />
+                  <ListItemText primary={"Client"} />
                 </ListItem>
               </Link>
-              <Link to="/finalsalary" className={classes.link}>
+              <Link to="/discount" className={classes.link}>
                 <ListItem button>
-                  {/* <ListItemIcon>
-                    <PostAddIcon />
-                  </ListItemIcon> */}
-                  <ListItemText primary={"Final salary"} />
+                  <ListItemText primary={"Discount"} />
                 </ListItem>
               </Link>
-              <Link to="/typework" className={classes.link}>
+              <Link to="/room" className={classes.link}>
                 <ListItem button>
-                  {/* <ListItemIcon>
-                    <AssignmentIndIcon />
-                  </ListItemIcon> */}
-                  <ListItemText primary={"Type of work"} />
+                  <ListItemText primary={"Room"} />
                 </ListItem>
               </Link>
-              <Link to="/work" className={classes.link}>
+              <Link to="/settling" className={classes.link}>
                 <ListItem button>
-                  {/* <ListItemIcon>
-                    <PersonIcon />
-                  </ListItemIcon> */}
-                  <ListItemText primary={"Work"} />
+                  <ListItemText primary={"Settling"} />
                 </ListItem>
               </Link>
-              <Link to="/employeework" className={classes.link}>
+              <Link to="/discountsettling" className={classes.link}>
                 <ListItem button>
-                  {/* <ListItemIcon>
-                    <PersonAddIcon />
-                  </ListItemIcon> */}
-                  <ListItemText primary={"Employee Work"} />
+                  <ListItemText primary={"Discount and Settling"} />
                 </ListItem>
               </Link>
           </List>
@@ -89,24 +74,24 @@ export default function App() {
           () => <StartPage/>
         }>
         </Route>
-        <Route path="/employee" component={
-          () => <Entity entityName='employee' publicName='Employee' id='Employee_code'/>
+        <Route path="/client" component={
+          () => <Entity entityName='client' publicName='Client' id='ClientID'/>
         }>
         </Route>
-        <Route path="/finalsalary" component={
-          () => <Entity entityName='finalsalary' publicName='Final salary' id='Final_salary_code'/>
+        <Route path="/room" component={
+          () => <Entity entityName='room' publicName='Room' id='RoomID'/>
         }>
         </Route>
-        <Route path="/typework" component={
-          () => <Entity entityName='typework' publicName='Type of work' id='Code_type_work'/>
+        <Route path="/discount" component={
+          () => <Entity entityName='discount' publicName='Discount' id='DiscountID'/>
         }>
         </Route>
-        <Route path="/work" component={
-          () => <Entity entityName='work' publicName='Work' id='Work_code'/>
+        <Route path="/settling" component={
+          () => <Entity entityName='settling' publicName='Settling' id='SettlingID'/>
         }>
         </Route>
-        <Route path="/employeework" component={
-          () => <Entity entityName='employeework' publicName='Employee work' id=''/>
+        <Route path="/discountsettling" component={
+          () => <Entity entityName='discountsettling' publicName='Discount and Settling' id=''/>
         }>
         </Route>
         </Switch>

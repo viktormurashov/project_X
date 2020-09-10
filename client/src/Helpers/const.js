@@ -1,32 +1,35 @@
-export const employeeColumns = [
-    { title: 'Surname', field: 'Surname'},
-    { title: 'Name', field: 'Name' },
-    { title: 'Middle name', field: 'MiddleName'},
-    { title: 'Salary', field: 'Salary'},
+export const clientColumns = [
+    { title: 'Second name', field: 'SecondName'},
+    { title: 'First name', field: 'FirstName' },
+    { title: 'Patronymic', field: 'Patronymic'},
+    { title: 'Pasport data', field: 'PasportData'},
+    { title: 'Comments', field: 'Comments'},
 ];
 
-export const finalsalaryColumns = [
-    { title: 'Day of payment', field: 'Pay_day'},
-    { title: 'Payment', field: 'Payment_for_work' },
-    { title: 'Total', field: 'Itog'},
+export const discountColumns = [
+    { title: 'Name', field: 'Name'},
+    { title: 'Amount of discount', field: 'AmountOfDiscount' },
 ];
 
-export const employeeworkColumns = [
-    { title: 'Employee code', field: 'Employee_code' },
-    { title: 'Work code', field: 'Work_code' },
-    { title: 'Type work code', field: 'Code_type_work' },
+export const roomColumns = [
+    { title: 'Number', field: 'Number' },
+    { title: 'Number of people', field: 'NumberOfPeople' },
+    { title: 'Comfort', field: 'Comfort' },
+    { title: 'Price', field: 'Price' },
 ];
 
-export const workColumns = [
-    { title: 'Start date', field: 'Date_start'},
-    { title: 'End date', field: 'Date_end' },
-    { title: 'Deadline', field: 'Deadline'},
-    { title: 'Need employee', field: 'Need_Employee'},
+export const settlingColumns = [
+    { title: 'Settling date', field: 'SettlingDate' },
+    { title: 'Departure date', field: 'DepartureDate' },
+    { title: 'Note', field: 'Note' },
+    { title: 'Is reservation?', field: 'IsReservation' },
+    { title: 'Client id', field: 'ClientID'},
+    { title: 'Room id', field: 'RoomID'},
 ];
 
-export const typeofworkColumns = [
-    { title: 'Definition', field: 'Definition' },
-    { title: 'Payment for work', field: 'Payment_for_work'},
+export const discountsettlingColumns = [
+    { title: 'Settling id', field: 'SettlingID' },
+    { title: 'Discount id', field: 'DiscountID'},
 ];
 
 export const months = [

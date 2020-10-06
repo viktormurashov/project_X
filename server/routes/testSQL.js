@@ -55,7 +55,7 @@ router.post('/discount', async (req, res) => {
 router.put('/discount', async (req, res) => {
     if (!req.body) { console.log('Invalid input discount') }
     data = req.body;
-    await sql.query`UPDATE Deal SET Name=${data.Name}, AmountOfDiscount=${data.AmountOfDiscount},
+    await sql.query`UPDATE Discount SET Name=${data.Name}, AmountOfDiscount=${data.AmountOfDiscount}
     WHERE DiscountID=${data.DiscountID}`;
 
     res.send('ok');
@@ -118,7 +118,7 @@ router.put('/room', async (req, res) => {
     if (!req.body) { console.log('Invalid input room') }
     data = req.body;
     await sql.query`UPDATE Room SET Number=${data.Number}, Comfort=${data.Comfort},
-     Misc=${data.Misc}, AssumedSalary=${data.AssumedSalary},
+    NumberOfPeople=${data.NumberOfPeople}, Price=${data.Price}
      WHERE RoomID=${data.RoomID}`;
 
     res.send('ok');

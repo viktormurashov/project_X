@@ -14,11 +14,10 @@ import {
   ListItemIcon, ListItemText,
 } from "@material-ui/core";
 
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import WorkIcon from '@material-ui/icons/Work';
 import PersonIcon from '@material-ui/icons/Person';
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import DescriptionIcon from '@material-ui/icons/Description';
+import CategoryIcon from '@material-ui/icons/Category';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: { width: 'inherit' },
@@ -42,28 +41,28 @@ export default function App() {
           classes={{ paper: classes.drawerPaper }}
         >
           <List>
-              <Link to="/payment" className={classes.link}>
+              <Link to="/document" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
-                    <WorkIcon />
+                    <DescriptionIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Payment"} />
+                  <ListItemText primary={"Document"} />
                 </ListItem>
               </Link>
-              <Link to="/outlet" className={classes.link}>
+              <Link to="/categoriesproducts" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
-                    <PostAddIcon />
+                    <CategoryIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"Outlet"} />
+                  <ListItemText primary={"Categories products"} />
                 </ListItem>
               </Link>
-              <Link to="/contract" className={classes.link}>
+              <Link to="/pricehistory" className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
-                    <AssignmentIndIcon />
+                    <PaymentIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"Contract"} />
+                  <ListItemText primary={"Price history"} />
                 </ListItem>
               </Link>
               <Link to="/client" className={classes.link}>
@@ -74,14 +73,7 @@ export default function App() {
                   <ListItemText primary={"Client"} />
                 </ListItem>
               </Link>
-              <Link to="/rent" className={classes.link}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <PersonAddIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Rent"} />
-                </ListItem>
-              </Link>
+          
           </List>
         </Drawer>
         <Switch>
@@ -90,25 +82,22 @@ export default function App() {
         }>
         </Route>
         <Route path="/client" component={
-          () => <Entity entityName='client' publicName='Client' id='ClientID'/>
+          () => <Entity entityName='client' publicName='Client' id='ClientId'/>
         }>
         </Route>
-        <Route path="/contract" component={
-          () => <Entity entityName='contract' publicName='Contract' id='ContractID'/>
+        <Route path="/document" component={
+          () => <Entity entityName='document' publicName='Document' id='DocumentId'/>
         }>
         </Route>
-        <Route path="/rent" component={
-          () => <Entity entityName='rent' publicName='Rent' id='RentalID'/>
+        <Route path="/categoriesproducts" component={
+          () => <Entity entityName='categoriesproducts ' publicName='Categories products' id='CategoriesProductsId'/>
         }>
         </Route>
-        <Route path="/outlet" component={
-          () => <Entity entityName='outlets' publicName='Outlet' id='OutletID'/>
+        <Route path="/pricehistory" component={
+          () => <Entity entityName='pricehistory' publicName='Price History' id='HistoryId'/>
         }>
         </Route>
-        <Route path="/payment" component={
-          () => <Entity entityName='payment' publicName='Payment' id='PaymentID'/>
-        }>
-        </Route>
+        
         </Switch>
       </div>
     </Router>

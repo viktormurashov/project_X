@@ -3,151 +3,122 @@ const router = express.Router();
 const sql = require("mssql");
 const excel = require('exceljs');
 
-router.get('/rent', async (req, res) => {
-    const result = await sql.query`select * from Rent`;
-    res.send(result.recordset);
-});
-
-router.post('/rent', async (req, res) => {
-    if (!req.body) { console.log('Invalid input rent') }
-    data = req.body;
-    await sql.query`INSERT INTO Rent(EmployerID, PositionName, Salary, IsOpen) values (${data.EmployerID}, ${data.PositionName}, ${data.Salary}, ${data.IsOpen})`;
-
-    res.send('ok');
-});
-
-router.put('/rent', async (req, res) => {
-    if (!req.body) { console.log('Invalid input positions') }
-    data = req.body;
-    await sql.query`UPDATE Rent SET EmployerID=${data.EmployerID}, PositionName=${data.PositionName}, Salary=${data.Salary}, IsOpen=${data.IsOpen} WHERE PositionID=${data.PositionID}`;
-
-    res.send('ok');
-});
-
-router.delete('/rent', async (req, res) => {
-    if (!req.body) { console.log('Invalid input positions') }
-    data = req.body;
-    await sql.query`DELETE FROM Rent WHERE PositionID=${data.id}`;
-
-    res.send('ok');
-});
-
-router.get('/contract', async (req, res) => {
-    const result = await sql.query`select * from Contract`;
-    res.send(result.recordset);
-});
-router.post('/contract', async (req, res) => {
-    if (!req.body) { console.log('Invalid input deal') }
-    data = req.body;
-    await sql.query`INSERT INTO Contract(SeekerID, PositionID, DateOfDeal, Commission) values (${data.SeekerID}, ${data.PositionID}, ${data.DateOfDeal}, ${data.Commission})`;
-
-    res.send('ok');
-});
-
-router.put('/contract', async (req, res) => {
-    if (!req.body) { console.log('Invalid input deal') }
-    data = req.body;
-    await sql.query`UPDATE Contract SET SeekerID=${data.SeekerID}, PositionID=${data.PositionID}, DateOfDeal=${data.DateOfDeal}, Commission=${data.Commission} WHERE DealID=${data.DealID}`;
-
-    res.send('ok');
-});
-
-router.delete('/contract', async (req, res) => {
-    if (!req.body) { console.log('Invalid input deal') }
-    data = req.body;
-    await sql.query`DELETE FROM Contract WHERE DealID=${data.id}`;
-
-    res.send('ok');
-});
-
 router.get('/client', async (req, res) => {
     const result = await sql.query`select * from Client`;
     res.send(result.recordset);
 });
 
 router.post('/client', async (req, res) => {
-    if (!req.body) { console.log('Invalid input employer') }
+    if (!req.body) { console.log('Invalid input client') }
     data = req.body;
-    await sql.query`INSERT INTO Client(WorkID, Name, Address, PhoneNumber) values (${data.WorkID}, ${data.Name}, ${data.Address}, ${data.PhoneNumber})`;
+    await sql.query`INSERT INTO Client(SecondName, FirstName, Patronymic, PasportNumber, PasportSeries, PassportIssueDate) values (${data.SecondName}, ${data.FirstName}, ${data.Patronymic}, ${data.PasportNumber}, ${data.PasportSeries}, ${data.PassportIssueDate})`;
 
     res.send('ok');
 });
 
 router.put('/client', async (req, res) => {
-    if (!req.body) { console.log('Invalid input employer') }
+    if (!req.body) { console.log('Invalid input positions') }
     data = req.body;
-    await sql.query`UPDATE Client SET WorkID=${data.WorkID}, Name=${data.Name}, Address=${data.Address}, PhoneNumber=${data.PhoneNumber} WHERE EmployerID=${data.EmployerID}`;
+    await sql.query`UPDATE Client SET SecondName=${data.SecondName}, FirstName=${data.FirstName}, Patronymic=${data.Patronymic}, PasportNumber=${data.PasportNumber}, PasportSeries=${data.PasportSeries}, PassportIssueDate=${data.PassportIssueDate} WHERE ClientId=${data.ClientId}`;
 
     res.send('ok');
 });
 
 router.delete('/client', async (req, res) => {
+    if (!req.body) { console.log('Invalid input positions') }
+    data = req.body;
+    await sql.query`DELETE FROM Client WHERE Clientid=${data.id}`;
+
+    res.send('ok');
+});
+
+router.get('/document', async (req, res) => {
+    const result = await sql.query`select * from Document`;
+    res.send(result.recordset);
+});
+router.post('/document', async (req, res) => {
+    if (!req.body) { console.log('Invalid input deal') }
+    data = req.body;
+    await sql.query`INSERT INTO Document(CategoriesProductsId, ClientId, ProductDescription, Commission, Sum, BegginingDate, EndDate) values (${data.CategoriesProductsId}, ${data.ClientId}, ${data.ProductDescription}, ${data.Commission}, ${data.Sum}, ${data.BegginingDate}, ${data.EndDate})`;
+
+    res.send('ok');
+});
+
+router.put('/document', async (req, res) => {
+    if (!req.body) { console.log('Invalid input deal') }
+    data = req.body;
+    await sql.query`UPDATE Document SET CategoriesProductsId=${data.CategoriesProductsId}, ClientId=${data.ClientId}, ProductDescription=${data.ProductDescription}, Commission=${data.Commission}, Sum=${data.Sum}, BegginingDate${data.BegginingDate}, EndDate=${data.EndDate}  WHERE DocumentId=${data.DocumentId}`;
+
+    res.send('ok');
+});
+
+router.delete('/document', async (req, res) => {
+    if (!req.body) { console.log('Invalid input deal') }
+    data = req.body;
+    await sql.query`DELETE FROM Document WHERE DocumentId=${data.id}`;
+
+    res.send('ok');
+});
+
+router.get('/categoriesproducts', async (req, res) => {
+    const result = await sql.query`select * from Categories_Products`;
+    res.send(result.recordset);
+});
+
+router.post('/categoriesproducts', async (req, res) => {
+    if (!req.body) { console.log('Invalid input employer') }
+    data = req.body;
+    await sql.query`INSERT INTO Categories_Products(Name, Description) values (${data.Name}, ${data.Description},)`;
+
+    res.send('ok');
+});
+
+router.put('/categoriesproducts', async (req, res) => {
+    if (!req.body) { console.log('Invalid input employer') }
+    data = req.body;
+    await sql.query`UPDATE Categories_Products SET Name=${data.Name}, Description=${data.Description} WHERE EmployerID=${data.CategoriesProductsId}`;
+
+    res.send('ok');
+});
+
+router.delete('/categoriesproducts', async (req, res) => {
     if (!req.body) { console.log('Invalid input v') }
     data = req.body;
-    await sql.query`DELETE FROM Client WHERE EmployerID=${data.id}`;
+    await sql.query`DELETE FROM Categories_Products WHERE CategoriesProductsId=${data.id}`;
 
     res.send('ok');
 });
 
-router.get('/outlets', async (req, res) => {
-    const result = await sql.query`select * from Outlets`;
+router.get('/pricehistory', async (req, res) => {
+    const result = await sql.query`select * from Price_History`;
     res.send(result.recordset);
 });
 
-router.post('/outlets', async (req, res) => {
+router.post('/pricehistory', async (req, res) => {
     if (!req.body) { console.log('Invalid input jobseeker') }
     data = req.body;
-    await sql.query`INSERT INTO Outlets(WorkID, Qualification, Misc, AssumedSalary, FirstName, SecondName, ThirdName) 
-    values (${data.WorkID}, ${data.Qualification}, ${data.Misc}, ${data.AssumedSalary}, ${data.FirstName}, ${data.SecondName}, ${data.ThirdName})`;
+    await sql.query`INSERT INTO Price_History(DocumentId, PricingDate, Price, SoldOut) 
+    values (${data.DocumentId}, ${data.PricingDate}, ${data.Price}, ${data.SoldOut})`;
 
     res.send('ok');
 });
 
-router.put('/outlets', async (req, res) => {
+router.put('/pricehistory', async (req, res) => {
     if (!req.body) { console.log('Invalid input jobseeker') }
     data = req.body;
-    await sql.query`UPDATE Outlets SET WorkID=${data.WorkID}, Qualification=${data.Qualification}, Misc=${data.Misc}, AssumedSalary=${data.AssumedSalary},
-     FirstName=${data.FirstName}, SecondName=${data.SecondName}, ThirdName=${data.ThirdName} WHERE SeekerID=${data.SeekerID}`;
+    await sql.query`UPDATE Price_History SET DocumentId=${data.DocumentId}, PricingDate=${data.PricingDate}, Price=${data.Price}, SoldOut=${data.SoldOut} WHERE HistoryId=${data.HistoryId}`;
 
     res.send('ok');
 });
 
-router.delete('/outlets', async (req, res) => {
+router.delete('/pricehistory', async (req, res) => {
     if (!req.body) { console.log('Invalid input jobseeker') }
     data = req.body;
-    await sql.query`DELETE FROM Outlets WHERE SeekerID=${data.id}`;
+    await sql.query`DELETE FROM Price_History WHERE HistoryId=${data.id}`;
 
     res.send('ok');
 });
 
-router.get('/payment', async (req, res) => {
-    const result = await sql.query`select * from Payment`;
-    res.send(result.recordset);
-});
-
-router.post('/payment', async (req, res) => {
-    if (!req.body) { console.log('Invalid input typeofwork') }
-    data = req.body;
-    await sql.query`INSERT INTO Payment(PaymentDate, SummPayment, ContractID) values (${data.PaymentDate}, ${data.SummPayment}, ${data.ContractID})`;
-
-    res.send('ok');
-});
-
-router.put('/payment', async (req, res) => {
-    if (!req.body) { console.log('Invalid input typeofwork') }
-    data = req.body;
-    await sql.query`UPDATE Payment SET Name=${data.Name} WHERE WorkID=${data.WorkID}`;
-
-    res.send('ok');
-});
-
-router.delete('/payment', async (req, res) => {
-    if (!req.body) { console.log('Invalid input typeofwork') }
-    data = req.body;
-    await sql.query`DELETE FROM Payment WHERE WorkID=${data.id}`;
-
-    res.send('ok');
-});
 
 router.get('/exceltypeofwork', async (req, res) => {
     const result = await sql.query`select * from TypeOfWork`;

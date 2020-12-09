@@ -1,35 +1,35 @@
-export const dealColumns = [
-    { title: 'Deal ID', field: 'DealID'},
-    { title: 'Date of deal', field: 'DateOfDeal'},
-    { title: 'Seeker ID', field: 'SeekerID' },
-    { title: 'Position ID', field: 'PositionID'},
+export const documentColumns = [
+    { title: 'Document Id', field: 'DocumentId'},
+    {title: 'Categories Products Id', field: 'CategoriesProductsId'},
+    {title: 'Client Id', field: 'ClientId'},
+    {title: 'Product Description Id', field: 'ProductDescriptionId'},
+    { title: 'Sum', field: 'Sum'},
     { title: 'Commission', field: 'Commission'},
+    { title: 'Beggining Date', field: 'BegginingDate'},
+    { title: 'End Date', field: 'EndDate'},
 ];
 
-export const employerColumns = [
-    { title: 'Employer ID', field: 'EmployerID'},
-    { title: 'Work ID', field: 'WorkID' },
+export const clientColumns = [
+    { title: 'Client ID', field: 'ClientId'},
+    { title: 'Second Name', field: 'SecondName'},
+    { title: 'First Name', field: 'FirstName'},
+    { title: 'Patronymic', field: 'Patronymic'},
+    { title: 'Pasport Number', field: 'PasportNumber'},
+    { title: 'Pasport Series', field: 'PasportSeries'},
+    { title: 'Passport Issue Date', field: 'PassportIssueDate'},
+];
+
+export const categoriesproductsColumns = [
+    { title: 'Categories Products Id', field: 'CategoriesProductsId'},
     { title: 'Name', field: 'Name'},
-    { title: 'Address', field: 'Address'},
-    { title: 'Phone number', field: 'PhoneNumber'},
+    { title: 'Description', field: 'Description'},
 ];
 
-export const seekerColumns = [
-    { title: 'Seeker ID', field: 'SeekerID' },
-    { title: 'Work ID', field: 'WorkID' },
-    { title: 'Second name', field: 'SecondName' },
-    { title: 'First name', field: 'FirstName'  },
-    { title: 'Third name', field: 'ThirdName' },
-    { title: 'Qualification', field: 'Qualification' },
-    { title: 'Assumed salary', field: 'AssumedSalary' },
-];
-
-export const positionsColumns = [
-    { title: 'Position ID', field: 'PositionID'},
-    { title: 'Employer ID', field: 'EmployerID' },
-    { title: 'Position name', field: 'PositionName'},
-    { title: 'Salary', field: 'Salary'},
-    { title: 'Open?', field: 'IsOpen'}
+export const historyColumns = [
+    { title: 'Document Id', field: 'DocumentId'},
+    { title: 'Pricing Date', field: 'PricingDate'},
+    { title: 'Price', field: 'Price'},
+    { title: 'Sold Out', field: 'SoldOut'},
 ];
 
 export const typeofwork = [
@@ -88,14 +88,7 @@ export const contractColumns = [
     { title: 'End Date', field: 'EndDate'},
 ];
 
-export const clientColumns = [
-    { title: 'Client ID', field: 'ClientID'},
-    { title: 'Title', field: 'Title'},
-    { title: 'Requisites', field: 'Requisites' },
-    { title: 'Address', field: 'Address'},
-    { title: 'Telephone', field: 'Telephone' },
-    { title: 'ContactPerson', field: 'ContactPerson' },
-];
+
 
 export const outletsColumns = [
     { title: 'Outlet ID', field: 'OutletID'},

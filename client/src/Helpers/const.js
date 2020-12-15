@@ -2,7 +2,7 @@ export const documentColumns = [
     { title: 'Document Id', field: 'DocumentId'},
     {title: 'Categories Products Id', field: 'CategoriesProductsId'},
     {title: 'Client Id', field: 'ClientId'},
-    {title: 'Product Description Id', field: 'ProductDescriptionId'},
+    {title: 'Product Description', field: 'ProductDescription'},
     { title: 'Sum', field: 'Sum'},
     { title: 'Commission', field: 'Commission'},
     { title: 'Beggining Date', field: 'BegginingDate'},

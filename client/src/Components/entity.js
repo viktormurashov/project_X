@@ -31,9 +31,9 @@ const TitleComponent = (publicName, logicName, func, data, sorting, expanded, ha
           <CloudDownloadIcon/>
         </a>
       </div>
-      <Collapse in={expanded} timeout="auto" >
+      {/* <Collapse in={expanded} timeout="auto" >
         <Filters changeData={func} data={data} filters={sorting}/>
-      </Collapse>
+      </Collapse> */}
     </div>
   )
 }
@@ -128,80 +128,74 @@ class Entity extends React.Component {
 
   updateState = async () => {
     const data = await API.getAll(this.props.entityName);
-    let id = 0;
-    let users = [];
+    // let id = 0;
+    // let users = [];
     let dataAfterParse = {};
-    let graphsData = {};
-    let charData = {};
-    let totalSum = 0;
+    // let graphsData = {};
+    // let charData = {};
+    // let totalSum = 0;
 
-    if (this.props.entityName === 'contract') {
+    if (this.props.entityName === 'client') {
         data.map(field => {
-          dataAfterParse = GetFormattedDate(new Date(field.BeginningDate));
-          field.BeginningDate = dataAfterParse.newDate;
-        })
-        data.map(field => {
-          dataAfterParse = GetFormattedDate(new Date(field.EndDate));
-          field.EndDate = dataAfterParse.newDate;
+          dataAfterParse = GetFormattedDate(new Date(field.PassportIssueDate));
+          field.PassportIssueDate = dataAfterParse.newDate;
         })
     }
 
-    if (this.props.entityName === 'payment') {
-      users = await API.getAll('client');
-      const contracts = await API.getAll('contract');
+    // if (this.props.entityName === 'payment') {
+    //   users = await API.getAll('client');
+    //   const contracts = await API.getAll('contract');
 
-      if (users.length) {
-        users = users.map(field => {
-          return field = {id: field.ClientID, name: field.ContactPerson}
-        })
-      }
-      if (users[0]) {
-        data.map(field => {
-          dataAfterParse = GetFormattedDate(new Date(field.PaymentDate));
-          field.PaymentDate = dataAfterParse.newDate;
-          contracts.map(contract => {
-            if (field.ContractID === contract.ContractID && contract.ClientID === users[0].id) {
-              if (graphsData[dataAfterParse.year]) {
-                graphsData[dataAfterParse.year][dataAfterParse.monthNumber] = field.SummPayment + graphsData[dataAfterParse.year][dataAfterParse.monthNumber];
-              } else {
-                const ar = arr.slice();
-                ar[dataAfterParse.monthNumber] = field.SummPayment;
-                graphsData[dataAfterParse.year] = ar;
-              }
-            }
-          })
-        })
-      }
+    //   if (users.length) {
+    //     users = users.map(field => {
+    //       return field = {id: field.ClientID, name: field.ContactPerson}
+    //     })
+    //   }
+    //   if (users[0]) {
+    //     data.map(field => {
+    //       dataAfterParse = GetFormattedDate(new Date(field.PaymentDate));
+    //       field.PaymentDate = dataAfterParse.newDate;
+    //       contracts.map(contract => {
+    //         if (field.ContractID === contract.ContractID && contract.ClientID === users[0].id) {
+    //           if (graphsData[dataAfterParse.year]) {
+    //             graphsData[dataAfterParse.year][dataAfterParse.monthNumber] = field.SummPayment + graphsData[dataAfterParse.year][dataAfterParse.monthNumber];
+    //           } else {
+    //             const ar = arr.slice();
+    //             ar[dataAfterParse.monthNumber] = field.SummPayment;
+    //             graphsData[dataAfterParse.year] = ar;
+    //           }
+    //         }
+    //       })
+    //     })
+    //   }
 
-      const dataSet = graphsData[this.state.currentYear];
+    //   const dataSet = graphsData[this.state.currentYear];
 
-      if (graphsData[this.state.currentYear]) {
-        graphsData[this.state.currentYear].map(month => {
-          totalSum += month;
-        })
-      }
+    //   if (graphsData[this.state.currentYear]) {
+    //     graphsData[this.state.currentYear].map(month => {
+    //       totalSum += month;
+    //     })
+    //   }
 
-      charData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-          {
-            label:'Rub',
-            data: dataSet
-          }
-        ]
-      }
-    }
+    //   charData = {
+    //     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    //     datasets: [
+    //       {
+    //         label:'Rub',
+    //         data: dataSet
+    //       }
+    //     ]
+    //   }
+    // }
 
-    this.sortComponents(data);
+    // this.sortComponents(data);
 
     this.setState({
       data,
-      graphsData,
-      charData,
-      totalSum,
+      // graphsData,
+      // charData,
+      // totalSum,
       previousData: data,
-      users,
-      userId: id
     });
   }
 
@@ -301,6 +295,7 @@ class Entity extends React.Component {
 
   async componentDidMount() {
       const columns = help.getFieldsByName(this.props.entityName);
+      console.log(columns, 'columns')
 
       this.setState({
           columns: columns,
@@ -310,9 +305,9 @@ class Entity extends React.Component {
 
   render() {
     return (
-      <div style={{width: "-webkit-fill-available", marginRight: '20px'}}>
+      <div style={{width: "-webkit-fill-available", margin: '0 20px'}}>
         {
-        Object.keys(this.state.sortingFields).length !== 0 && this.state.sortingNamesArray.length !== 0 ?
+        // Object.keys(this.state.sortingFields).length !== 0 && this.state.sortingNamesArray.length !== 0 ?
         <div>
           <MaterialTable
             title={TitleComponent(this.props.publicName, this.props.entityName, this.sortingForAllFields 
@@ -347,13 +342,13 @@ class Entity extends React.Component {
                 }),
             }}
               />
-              {
+              {/* {
                 this.state.charData.labels && this.state.users.length && this.state.users
                 ? <Chart chartData={this.state.charData} totalSum={this.state.totalSum} users={this.state.users} userId={this.state.userId} changePaymentUser={this.changePaymentUser} changeYear={this.changeGraphYear} currentYear={this.state.currentYear}/> 
                 : <div/>
-              }
+              } */}
             </div>
-            : <div/>
+            // : <div/>
             }
       </div>
     );

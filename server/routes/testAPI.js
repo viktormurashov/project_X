@@ -68,7 +68,7 @@ router.get('/categoriesproducts', async (req, res) => {
 router.post('/categoriesproducts', async (req, res) => {
     if (!req.body) { console.log('Invalid input employer') }
     data = req.body;
-    await sql.query`INSERT INTO Categories_Products(Name, Description) values (${data.Name}, ${data.Description},)`;
+    await sql.query`INSERT INTO Categories_Products(Name, Description) values (${data.Name}, ${data.Description})`;
 
     res.send('ok');
 });
@@ -120,22 +120,28 @@ router.delete('/pricehistory', async (req, res) => {
 });
 
 
-router.get('/exceltypeofwork', async (req, res) => {
-    const result = await sql.query`select * from TypeOfWork`;
+router.get('/exceldocument', async (req, res) => {
+    const result = await sql.query`select * from Document`;
     const json = JSON.parse(JSON.stringify(result.recordset));
 
     let workbook = new excel.Workbook();
-    let worksheet = workbook.addWorksheet('TypeOfWork');
+    let worksheet = workbook.addWorksheet('Document');
 
     worksheet.columns = [
-        { header: 'Id', key: 'WorkID', width: 10 },
-        { header: 'Name', key: 'Name', width: 30 },
+        { header: 'Id', key: 'DocumentId', width: 10 },
+        { header: 'Client Id', key: 'ClientId', width: 30 },
+        { header: 'Products Id', key: 'CategoriesProductsId', width: 30 },
+        { header: 'Product description', key: 'ProductDescription', width: 30 },
+        { header: 'Commission', key: 'Commission', width: 30 },
+        { header: 'Sum', key: 'Sum', width: 30 },
+        { header: 'Beggining Date', key: 'BegginingDate', width: 30 },
+        { header: 'End Date', key: 'EndDate', width: 30 },
     ];
 
     worksheet.addRows(json);
 
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + 'TypeOfWork.xlsx');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + 'Document.xlsx');
 
     return workbook.xlsx.write(res)
           .then(function() {

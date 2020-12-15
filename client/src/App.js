@@ -90,7 +90,7 @@ export default function App() {
         }>
         </Route>
         <Route path="/categoriesproducts" component={
-          () => <Entity entityName='categoriesproducts ' publicName='Categories products' id='CategoriesProductsId'/>
+          () => <Entity entityName='categoriesproducts' publicName='Categories products' id='CategoriesProductsId'/>
         }>
         </Route>
         <Route path="/pricehistory" component={
